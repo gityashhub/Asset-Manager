@@ -40,13 +40,13 @@ outputType = "console"
 name = "Start application"
 author = "agent"
 
+[workflows.workflow.metadata]
+outputType = "webview"
+
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "pnpm --filter @workspace/frontend run start"
-waitForPort = 4200
-
-[workflows.workflow.metadata]
-outputType = "webview"
+waitForPort = 5173
 
 [agent]
 stack = "PNPM_WORKSPACE"
@@ -55,6 +55,14 @@ expertMode = true
 [postMerge]
 path = "scripts/post-merge.sh"
 timeoutMs = 20000
+
+[[ports]]
+localPort = 5000
+externalPort = 5000
+
+[[ports]]
+localPort = 5173
+externalPort = 5173
 
 [[ports]]
 localPort = 8080
