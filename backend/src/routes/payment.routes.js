@@ -4,7 +4,8 @@ const c = require('../controllers/payment.controller');
 
 router.use(protect);
 
-router.post('/simulate', c.simulate);
+router.post('/upi', c.payByUpi);
+router.post('/cod', c.payByCod);
 router.get('/mine', c.myPayments);
 
 module.exports = router;

@@ -30,7 +30,7 @@ import { Order } from '../../core/models';
             <h3>Items</h3>
             @for (it of order()!.items; track it.product) {
               <div class="oitem">
-                @if (it.image) { <img [src]="it.image" [alt]="it.name"> }
+                <img [src]="it.image || fallback" [alt]="it.name" (error)="onImgError($event)">
                 <div class="info">
                   <span class="muted small">{{ it.brand }}</span>
                   <strong>{{ it.name }}</strong>
@@ -63,10 +63,13 @@ import { Order } from '../../core/models';
             <div class="card-block">
               <h4>Payment</h4>
               <p>
-                Method: <strong>{{ order()!.payment.method }}</strong><br>
-                Status: <strong>{{ order()!.payment.status }}</strong>
+                Method: <strong>{{ methodLabel(order()!.payment.method) }}</strong><br>
+                Status: <strong>{{ paymentStatusLabel(order()!.payment.status) }}</strong>
                 @if (order()!.payment.transactionId) {
                   <br>Reference: <code>{{ order()!.payment.transactionId }}</code>
+                }
+                @if (order()!.payment.upiId) {
+                  <br>UPI ID: <code>{{ order()!.payment.upiId }}</code>
                 }
               </p>
               @if (order()!.status === 'pending_payment') {
@@ -132,6 +135,12 @@ export class OrderDetailComponent implements OnInit {
   private ordersService = inject(OrdersService);
   order = signal<Order | null>(null);
   loading = signal(true);
+  fallback = 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=300&q=80';
+
+  onImgError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img.src !== this.fallback) img.src = this.fallback;
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -148,6 +157,7 @@ export class OrderDetailComponent implements OnInit {
   statusLabel(s: Order['status']): string {
     const map: Record<string, string> = {
       pending_payment: 'Awaiting payment',
+      confirmed: 'Confirmed (COD)',
       paid: 'Paid',
       failed: 'Payment failed',
       pending: 'Payment pending',
@@ -160,9 +170,25 @@ export class OrderDetailComponent implements OnInit {
   }
 
   statusClass(s: Order['status']): string {
-    if (s === 'paid' || s === 'delivered' || s === 'shipped') return 'badge-success';
+    if (s === 'paid' || s === 'confirmed' || s === 'delivered' || s === 'shipped') return 'badge-success';
     if (s === 'failed' || s === 'cancelled') return 'badge-danger';
     if (s === 'pending' || s === 'pending_payment' || s === 'processing') return 'badge-warning';
     return '';
+  }
+
+  methodLabel(m: string): string {
+    if (m === 'upi') return 'UPI';
+    if (m === 'cod') return 'Cash on Delivery';
+    return 'Not selected';
+  }
+
+  paymentStatusLabel(s: string): string {
+    const map: Record<string, string> = {
+      unpaid: 'Awaiting payment',
+      success: 'Paid',
+      pending: 'Pending (collect on delivery)',
+      failure: 'Failed',
+    };
+    return map[s] || s;
   }
 }

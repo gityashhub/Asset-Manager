@@ -45,7 +45,7 @@ import { Order } from '../../core/models';
               <div class="items">
                 @for (it of o.items; track it.product) {
                   <div class="oitem">
-                    @if (it.image) { <img [src]="it.image" [alt]="it.name"> }
+                    <img [src]="it.image || fallback" [alt]="it.name" (error)="onImgError($event)">
                     <div>
                       <span class="muted small">{{ it.brand }}</span>
                       <strong>{{ it.name }}</strong>
@@ -101,6 +101,12 @@ export class OrdersComponent implements OnInit {
   private ordersService = inject(OrdersService);
   orders = signal<Order[]>([]);
   loading = signal(true);
+  fallback = 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=200&q=80';
+
+  onImgError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img.src !== this.fallback) img.src = this.fallback;
+  }
 
   ngOnInit(): void {
     this.ordersService.mine().subscribe({
@@ -115,6 +121,7 @@ export class OrdersComponent implements OnInit {
   statusLabel(s: Order['status']): string {
     const map: Record<string, string> = {
       pending_payment: 'Awaiting payment',
+      confirmed: 'Confirmed (COD)',
       paid: 'Paid',
       failed: 'Payment failed',
       pending: 'Payment pending',
@@ -127,7 +134,7 @@ export class OrdersComponent implements OnInit {
   }
 
   statusClass(s: Order['status']): string {
-    if (s === 'paid' || s === 'delivered' || s === 'shipped') return 'badge-success';
+    if (s === 'paid' || s === 'confirmed' || s === 'delivered' || s === 'shipped') return 'badge-success';
     if (s === 'failed' || s === 'cancelled') return 'badge-danger';
     if (s === 'pending' || s === 'pending_payment' || s === 'processing') return 'badge-warning';
     return '';

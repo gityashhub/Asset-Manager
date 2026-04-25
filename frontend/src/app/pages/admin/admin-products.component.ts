@@ -32,9 +32,8 @@ import { Product } from '../../core/models';
             @for (p of products(); track p._id) {
               <tr>
                 <td>
-                  @if (p.images?.[0]) {
-                    <img [src]="p.images[0]" [alt]="p.name" class="thumb">
-                  }
+                  <img [src]="p.images?.[0] || fallback" [alt]="p.name" class="thumb"
+                       (error)="onImgError($event)">
                 </td>
                 <td><strong>{{ p.name }}</strong></td>
                 <td>{{ p.brand }}</td>
@@ -244,6 +243,12 @@ export class AdminProductsComponent implements OnInit {
 
   categories = ['Luxury', 'Sport', 'Classic', 'Smart', 'Diver', 'Dress', 'Pilot'];
   movements = ['Automatic', 'Quartz', 'Mechanical', 'Solar', 'Smart'];
+  fallback = 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=120&q=80';
+
+  onImgError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img.src !== this.fallback) img.src = this.fallback;
+  }
 
   ngOnInit(): void {
     this.fetch();

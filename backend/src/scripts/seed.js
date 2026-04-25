@@ -52,7 +52,8 @@ const products = [
     description: 'An open-worked dial reveals every gear, bridge, and balance wheel of an in-house skeletonised movement.',
     price: 12400,
     images: [
-      'https://images.unsplash.com/photo-1606293459339-aa5c3a51f3d4?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1533139502658-0198f920d8e8?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?auto=format&fit=crop&w=900&q=80',
     ],
     stock: 3,
     category: 'Luxury',
@@ -107,7 +108,8 @@ const products = [
     price: 3870,
     originalPrice: 4100,
     images: [
-      'https://images.unsplash.com/photo-1611288875785-f4c2dc7f9be3?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?auto=format&fit=crop&w=900&q=80',
     ],
     stock: 9,
     category: 'Sport',
@@ -125,7 +127,8 @@ const products = [
     description: 'A solar-powered eco watch that runs perpetually on light, with a recycled-steel case.',
     price: 690,
     images: [
-      'https://images.unsplash.com/photo-1639037687665-37e92b6c0b87?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1610384104075-e05c8cf200c3?auto=format&fit=crop&w=900&q=80',
     ],
     stock: 36,
     category: 'Sport',

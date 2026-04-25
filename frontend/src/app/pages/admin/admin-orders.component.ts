@@ -81,6 +81,7 @@ export class AdminOrdersComponent implements OnInit {
 
   statuses: Order['status'][] = [
     'pending_payment',
+    'confirmed',
     'paid',
     'failed',
     'pending',
@@ -120,6 +121,7 @@ export class AdminOrdersComponent implements OnInit {
   statusLabel(s: Order['status']): string {
     const map: Record<string, string> = {
       pending_payment: 'Awaiting payment',
+      confirmed: 'Confirmed (COD)',
       paid: 'Paid',
       failed: 'Payment failed',
       pending: 'Payment pending',

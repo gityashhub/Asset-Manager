@@ -14,7 +14,8 @@ import { Product } from '../../core/models';
         @if (product.originalPrice && product.originalPrice > product.price) {
           <span class="sale-tag">Sale</span>
         }
-        <img [src]="product.images?.[0] || fallback" [alt]="product.name" loading="lazy">
+        <img [src]="product.images?.[0] || fallback" [alt]="product.name" loading="lazy"
+             (error)="onImgError($event)">
       </div>
       <div class="meta">
         <span class="brand">{{ product.brand }}</span>
@@ -111,4 +112,9 @@ import { Product } from '../../core/models';
 export class ProductCardComponent {
   @Input({ required: true }) product!: Product;
   fallback = 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80';
+
+  onImgError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img.src !== this.fallback) img.src = this.fallback;
+  }
 }

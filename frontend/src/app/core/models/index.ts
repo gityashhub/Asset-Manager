@@ -84,6 +84,7 @@ export interface Order {
   shippingAddress: ShippingAddress;
   status:
     | 'pending_payment'
+    | 'confirmed'
     | 'paid'
     | 'failed'
     | 'pending'
@@ -92,8 +93,9 @@ export interface Order {
     | 'delivered'
     | 'cancelled';
   payment: {
-    method: string;
+    method: 'none' | 'upi' | 'cod';
     transactionId?: string;
+    upiId?: string;
     status: 'unpaid' | 'success' | 'failure' | 'pending';
     paidAt?: string;
   };

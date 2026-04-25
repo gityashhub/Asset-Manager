@@ -27,7 +27,8 @@ import { Product } from '../../core/models';
         <div class="product-grid">
           <div class="gallery">
             <div class="main-image">
-              <img [src]="activeImage() || fallback" [alt]="product()!.name">
+              <img [src]="activeImage() || fallback" [alt]="product()!.name"
+                   (error)="onImgError($event)">
             </div>
             @if ((product()!.images?.length || 0) > 1) {
               <div class="thumbs">
@@ -36,7 +37,7 @@ import { Product } from '../../core/models';
                     class="thumb"
                     [class.active]="img === activeImage()"
                     (click)="activeImage.set(img)">
-                    <img [src]="img" [alt]="''">
+                    <img [src]="img" [alt]="''" (error)="onImgError($event)">
                   </button>
                 }
               </div>
@@ -276,6 +277,11 @@ export class ProductDetailComponent implements OnInit {
         this.adding.set(false);
       },
     });
+  }
+
+  onImgError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img.src !== this.fallback) img.src = this.fallback;
   }
 
   stars(rating: number): string {

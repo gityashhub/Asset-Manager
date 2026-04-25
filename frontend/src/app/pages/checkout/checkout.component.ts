@@ -74,7 +74,8 @@ import { ShippingAddress } from '../../core/models';
             <h3>Order summary</h3>
             @for (item of cart.cart()!.items; track item.product._id) {
               <div class="line">
-                <img [src]="item.product.images?.[0] || fallback" [alt]="item.product.name">
+                <img [src]="item.product.images?.[0] || fallback" [alt]="item.product.name"
+                     (error)="onImgError($event)">
                 <div class="line-info">
                   <span class="muted small">{{ item.product.brand }}</span>
                   <strong>{{ item.product.name }}</strong>
@@ -180,5 +181,10 @@ export class CheckoutComponent implements OnInit {
         this.submitting.set(false);
       },
     });
+  }
+
+  onImgError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img.src !== this.fallback) img.src = this.fallback;
   }
 }

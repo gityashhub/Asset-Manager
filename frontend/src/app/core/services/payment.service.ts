@@ -4,13 +4,18 @@ import { Observable } from 'rxjs';
 import { API_BASE } from './api.config';
 import { Order } from '../models';
 
-export interface SimulatePaymentResponse {
-  payment: {
-    _id: string;
-    transactionId: string;
-    status: 'success' | 'failure' | 'pending';
-    amount: number;
-  };
+export interface Payment {
+  _id: string;
+  transactionId: string;
+  status: 'success' | 'failure' | 'pending';
+  method: 'upi' | 'cod';
+  amount: number;
+  upiId?: string;
+  createdAt: string;
+}
+
+export interface PaymentResponse {
+  payment: Payment;
   order: Order;
 }
 
@@ -18,7 +23,11 @@ export interface SimulatePaymentResponse {
 export class PaymentService {
   private http = inject(HttpClient);
 
-  simulate(orderId: string, outcome: 'success' | 'failure' | 'pending'): Observable<SimulatePaymentResponse> {
-    return this.http.post<SimulatePaymentResponse>(`${API_BASE}/payments/simulate`, { orderId, outcome });
+  payByUpi(orderId: string, upiId: string): Observable<PaymentResponse> {
+    return this.http.post<PaymentResponse>(`${API_BASE}/payments/upi`, { orderId, upiId });
+  }
+
+  payByCod(orderId: string): Observable<PaymentResponse> {
+    return this.http.post<PaymentResponse>(`${API_BASE}/payments/cod`, { orderId });
   }
 }

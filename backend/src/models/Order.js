@@ -31,13 +31,28 @@ const orderSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['pending_payment', 'paid', 'failed', 'pending', 'processing', 'shipped', 'delivered', 'cancelled'],
+      enum: [
+        'pending_payment',
+        'confirmed',
+        'paid',
+        'failed',
+        'pending',
+        'processing',
+        'shipped',
+        'delivered',
+        'cancelled',
+      ],
       default: 'pending_payment',
       index: true,
     },
     payment: {
-      method: { type: String, default: 'simulated' },
+      method: {
+        type: String,
+        enum: ['none', 'upi', 'cod'],
+        default: 'none',
+      },
       transactionId: String,
+      upiId: String,
       status: {
         type: String,
         enum: ['unpaid', 'success', 'failure', 'pending'],

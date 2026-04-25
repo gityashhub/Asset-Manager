@@ -42,7 +42,7 @@ const createFromCart = asyncHandler(async (req, res) => {
     total,
     shippingAddress,
     status: 'pending_payment',
-    payment: { method: 'simulated', status: 'unpaid' },
+    payment: { method: 'none', status: 'unpaid' },
   });
 
   res.status(201).json(order);
@@ -73,7 +73,16 @@ const listAll = asyncHandler(async (_req, res) => {
 
 const updateStatus = asyncHandler(async (req, res) => {
   const { status } = req.body;
-  const valid = ['paid', 'failed', 'pending', 'processing', 'shipped', 'delivered', 'cancelled'];
+  const valid = [
+    'paid',
+    'confirmed',
+    'failed',
+    'pending',
+    'processing',
+    'shipped',
+    'delivered',
+    'cancelled',
+  ];
   if (!valid.includes(status)) {
     res.status(400);
     throw new Error('Invalid status');

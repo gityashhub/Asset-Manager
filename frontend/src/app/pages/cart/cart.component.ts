@@ -35,7 +35,8 @@ import { AuthService } from '../../core/services/auth.service';
             @for (item of cart.cart()!.items; track item.product._id) {
               <article class="cart-item">
                 <a [routerLink]="['/product', item.product._id]" class="thumb">
-                  <img [src]="item.product.images?.[0] || fallback" [alt]="item.product.name">
+                  <img [src]="item.product.images?.[0] || fallback" [alt]="item.product.name"
+                       (error)="onImgError($event)">
                 </a>
                 <div class="info">
                   <span class="brand-line">{{ item.product.brand }}</span>
@@ -169,5 +170,10 @@ export class CartComponent implements OnInit {
 
   checkout(): void {
     this.router.navigate(['/checkout']);
+  }
+
+  onImgError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img.src !== this.fallback) img.src = this.fallback;
   }
 }

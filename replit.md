@@ -62,7 +62,14 @@ Creates the catalogue and an admin account:
 - REST APIs: products, users, cart, orders, payments, admin
 - Angular HTTP interceptor attaches JWT, route guards for `/account/*` and `/admin/*`
 - Lazy-loaded feature routes
-- Simulated payment service that returns success / failure / pending
+- Realistic dummy checkout with two methods:
+  - **UPI** — decorative QR + GPay/PhonePe/Paytm/BHIM badges, UPI ID validation
+    (`name@bank` regex), 1.8 s processing spinner, txn ID receipt, order → `paid`
+  - **Cash on Delivery** — address confirmation screen, 0.9 s placement,
+    payment status `pending` (collect on delivery), order → `confirmed`
+- Orders sync to admin (`/api/orders/all`) immediately with method + status badges
+- Robust image fallback: every `<img>` for product/order items has an `(error)`
+  handler that swaps in a known-good Unsplash watch photo
 - Light luxury "Maison Tempus" theme
 
 ## Notes
