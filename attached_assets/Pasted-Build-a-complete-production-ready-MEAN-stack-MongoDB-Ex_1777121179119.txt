@@ -1,0 +1,177 @@
+Build a **complete, production-ready MEAN stack (MongoDB, Express.js, Angular, Node.js) e-commerce web application for selling watches**, with a fully runnable setup inside Replit.
+
+---
+
+### 🎯 Goal
+
+Create a full-stack application that runs smoothly in Replit with:
+
+* Backend (Node.js + Express)
+* Frontend (Angular)
+* MongoDB integration (use MongoDB Atlas)
+
+Ensure everything is properly structured and runnable with clear commands.
+
+---
+
+### ⚙️ Project Setup Requirements
+
+1. Create two main folders:
+
+   * `/backend` (Node.js + Express API)
+   * `/frontend` (Angular app)
+
+2. Provide:
+
+   * `package.json` for both frontend and backend
+   * Scripts to run both servers concurrently
+   * Clear instructions to start the app
+
+---
+
+### 🔧 Backend Requirements (Node.js + Express)
+
+Implement a scalable backend with:
+
+* MVC architecture:
+
+  * models/
+  * controllers/
+  * routes/
+  * middleware/
+  * services/
+
+#### Features:
+
+* JWT Authentication (login/register)
+* Role-based access (user/admin)
+* REST APIs for:
+
+  * Products
+  * Users
+  * Cart
+  * Orders
+  * Payments
+
+#### Security:
+
+* Password hashing using bcrypt
+* JWT middleware for protected routes
+* Error handling middleware
+
+---
+
+### 🧩 Database (MongoDB)
+
+Use MongoDB Atlas connection string via environment variables.
+
+Collections:
+
+* Users
+* Products (watch details: name, brand, price, images, stock)
+* Orders
+* Payments
+
+Add sample seed data for products.
+
+---
+
+### 💳 Dummy Payment System
+
+Implement a simulated payment system:
+
+Flow:
+
+1. User clicks "Checkout"
+2. API creates order
+3. Redirect to a payment page
+4. Show 3 options:
+
+   * Success
+   * Failure
+   * Pending
+5. Based on selection:
+
+   * Update order status
+   * Store payment record with fake transaction ID
+
+---
+
+### 🎨 Frontend (Angular)
+
+Build a clean, modular Angular app with:
+
+#### Pages:
+
+* Home (featured watches)
+* Product listing (with filters & search)
+* Product details
+* Cart page
+* Checkout page
+* Payment simulation page
+* User orders page
+* Admin dashboard
+
+#### Features:
+
+* Angular services for API calls
+* HTTP interceptor for JWT
+* Route guards for auth
+* Lazy loading modules
+
+---
+
+### 🎯 UI Design
+
+* Minimal, premium, luxury watch-store feel
+* Light theme (white + subtle accents)
+* Fully responsive
+
+---
+
+### 📊 Admin Features
+
+* Add/edit/delete products
+* View all orders
+* Update order status
+* Basic dashboard stats
+
+---
+
+### 🚀 Replit-Specific Instructions
+
+* Use environment variables for MongoDB URI and JWT secret
+* Ensure app runs with a single command (e.g., `npm run dev`)
+* Use concurrently to run frontend and backend
+* Provide `.replit` or run configuration if needed
+
+---
+
+### 📦 Deliverables
+
+* Complete working code (frontend + backend)
+* Proper folder structure
+* Seed script for dummy data
+* README with:
+
+  * Setup steps
+  * Environment variables
+  * Run instructions
+
+---
+
+### 🧠 Important
+
+* Code should be modular and production-like, not a basic demo
+* Avoid unnecessary complexity but maintain scalability
+* Ensure clean and readable code
+
+---
+
+Generate the project step-by-step:
+
+1. First create backend setup
+2. Then frontend
+3. Then connect both
+4. Then implement features
+5. Then final run instructions
