@@ -8,7 +8,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   template: `
     <section class="admin-shell container">
       <aside class="admin-nav">
-        <span class="eyebrow">Atelier admin</span>
+        <span class="eyebrow">Watch Hub admin</span>
         <h2>Console</h2>
         <nav>
           <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>

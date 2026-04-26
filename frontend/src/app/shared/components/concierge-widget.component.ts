@@ -34,7 +34,7 @@ interface ChatTurn {
         <header class="panel-head">
           <div>
             <span class="eyebrow">AI Concierge</span>
-            <h3>Maison Tempus</h3>
+            <h3>Watch Hub</h3>
           </div>
           <button type="button" class="reset" (click)="reset()" title="Start a new conversation">↻</button>
         </header>

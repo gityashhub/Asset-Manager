@@ -33,7 +33,7 @@ import { CartService } from '../../core/services/cart.service';
               {{ loading() ? 'Signing in…' : 'Sign in' }}
             </button>
 
-            <p class="alt">New to Maison Tempus? <a routerLink="/register">Create an account</a></p>
+            <p class="alt">New to Watch Hub? <a routerLink="/register">Create an account</a></p>
 
             <div class="hint">
               <strong>Demo accounts</strong>

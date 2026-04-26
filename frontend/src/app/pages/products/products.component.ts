@@ -12,9 +12,9 @@ import { ProductCardComponent } from '../../shared/components/product-card.compo
   template: `
     <section class="page-hero">
       <div class="container">
-        <span class="eyebrow">The atelier</span>
+        <span class="eyebrow">The collection</span>
         <h1>Every watch we offer</h1>
-        <p class="lead">Browse the full collection. Filter by maison, category, or movement to find a piece that suits.</p>
+        <p class="lead">Browse the full hub. Filter by brand, category, or movement to find a piece that suits.</p>
       </div>
     </section>
 
@@ -31,9 +31,9 @@ import { ProductCardComponent } from '../../shared/components/product-card.compo
           </div>
 
           <div class="filter-block">
-            <h4>Maison</h4>
+            <h4>Brand</h4>
             <select [(ngModel)]="query.brand" (ngModelChange)="onFilterChange()">
-              <option [ngValue]="undefined">All maisons</option>
+              <option [ngValue]="undefined">All brands</option>
               @for (b of brands(); track b) {
                 <option [ngValue]="b">{{ b }}</option>
               }
@@ -93,13 +93,13 @@ import { ProductCardComponent } from '../../shared/components/product-card.compo
   styles: [`
     .page-hero {
       background: linear-gradient(180deg, #f5f2ec, var(--bg));
-      padding: 4rem 0 3rem;
+      padding: clamp(2rem, 5vw, 4rem) 0 clamp(1.5rem, 3vw, 3rem);
     }
-    .lead { font-size: 1.1rem; color: var(--ink-soft); max-width: 620px; }
+    .lead { font-size: clamp(0.95rem, 0.6vw + 0.8rem, 1.1rem); color: var(--ink-soft); max-width: 620px; }
     .shop-grid {
       display: grid;
       grid-template-columns: 240px 1fr;
-      gap: 3rem;
+      gap: clamp(1.5rem, 3vw, 3rem);
       align-items: start;
     }
     .filters {
@@ -107,7 +107,7 @@ import { ProductCardComponent } from '../../shared/components/product-card.compo
       top: 90px;
       display: flex;
       flex-direction: column;
-      gap: 1.75rem;
+      gap: 1.5rem;
       padding: 1.5rem;
       background: white;
       border-radius: var(--radius-lg);
@@ -118,8 +118,8 @@ import { ProductCardComponent } from '../../shared/components/product-card.compo
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--muted);
-      font-weight: 600;
-      margin: 0 0 0.6rem;
+      font-weight: 700;
+      margin: 0 0 0.55rem;
       font-family: var(--sans);
     }
     .price-range {
@@ -131,17 +131,23 @@ import { ProductCardComponent } from '../../shared/components/product-card.compo
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 0.75rem;
       margin-bottom: 1.5rem;
+      flex-wrap: wrap;
     }
-    .sort-select { width: auto; }
+    .sort-select { width: auto; min-width: 180px; }
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+      gap: clamp(1rem, 2vw, 1.5rem);
     }
     @media (max-width: 900px) {
       .shop-grid { grid-template-columns: 1fr; }
       .filters { position: static; }
+    }
+    @media (max-width: 540px) {
+      .filters { padding: 1.1rem; gap: 1.1rem; }
+      .results-head { font-size: 0.9rem; }
     }
   `],
 })
