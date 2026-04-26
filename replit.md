@@ -32,13 +32,15 @@ frontend/                      Angular 18 app (port 5173)
                                checkout, payment, orders, order-detail,
                                login, register, admin/*
     app.config.ts, app.routes.ts
-artifacts/                     (Replit artifact scaffolds — unused by MEAN app)
+scripts/public-proxy.cjs       Tiny HTTP proxy: 8081 -> localhost:5000 so the
+                               default Replit dev domain (externalPort 80)
+                               serves the Angular dev server.
 ```
 
 ## Workflows
 
-- **Backend** — `pnpm --filter @workspace/backend run dev` on port 5000 (console)
-- **Start application** — `pnpm --filter @workspace/frontend run start` on port 5173 (webview)
+- **Backend** — `BACKEND_PORT=3001 pnpm --filter @workspace/backend run dev` on port 3001 (console)
+- **Start application** — runs the public-URL proxy (`scripts/public-proxy.cjs`, port 8081 → 5000) alongside `PORT=5000 pnpm --filter @workspace/frontend run start` on port 5000 (webview). The proxy makes the dev server reachable from the default Replit dev domain (port 80).
 
 ## Environment
 
@@ -75,7 +77,9 @@ Creates the catalogue and an admin account:
 ## Notes
 
 - The user explicitly chose Angular + MongoDB despite Replit's recommendations.
-- The MEAN app is intentionally outside the Replit artifact system; the
-  `artifacts/api-server` and `artifacts/mockup-sandbox` workflows are leftover
-  scaffolds and unrelated to this product.
+- The previous `artifacts/api-server` and `artifacts/mockup-sandbox` scaffolds
+  were removed during the Replit migration — they were unrelated to this app.
 - Do not disable `minimumReleaseAge` in `pnpm-workspace.yaml`.
+- The Angular dev server (`@angular-devkit/build-angular:application` builder)
+  has its host check disabled via `disableHostCheck: true` in `angular.json` so
+  that the Replit dev domain can reach it.
