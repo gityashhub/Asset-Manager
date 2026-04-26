@@ -2,17 +2,19 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components/header.component';
 import { FooterComponent } from './shared/components/footer.component';
+import { ConciergeWidgetComponent } from './shared/components/concierge-widget.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, ConciergeWidgetComponent],
   template: `
     <app-header></app-header>
     <main class="app-main">
       <router-outlet></router-outlet>
     </main>
     <app-footer></app-footer>
+    <app-concierge-widget></app-concierge-widget>
   `,
   styles: [`
     :host { display: flex; flex-direction: column; min-height: 100vh; }

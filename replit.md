@@ -71,6 +71,7 @@ Creates the catalogue and an admin account:
     payment status `pending` (collect on delivery), order → `confirmed`
 - Orders sync to admin (`/api/orders/all`) immediately with method + status badges
 - Admin orders page (`/admin/orders`) shows order count tiles, status filter, refresh, empty/error states, and expandable details (items, shipping address, totals)
+- **AI Watch Concierge** — floating chat widget on every page powered by Groq + Llama 3.3. Backend endpoint `POST /api/ai/concierge` injects the live product catalogue into the system prompt and parses `[PICK]` markers to render clickable product cards that link to `/product/:id`. Rate-limited to 20 req/min/IP. Requires `GROQ_API_KEY` secret.
 - Robust image fallback: every `<img>` for product/order items has an `(error)`
   handler that swaps in a known-good Unsplash watch photo
 - Light luxury "Maison Tempus" theme
