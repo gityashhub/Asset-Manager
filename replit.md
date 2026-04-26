@@ -70,6 +70,7 @@ Creates the catalogue and an admin account:
   - **Cash on Delivery** — address confirmation screen, 0.9 s placement,
     payment status `pending` (collect on delivery), order → `confirmed`
 - Orders sync to admin (`/api/orders/all`) immediately with method + status badges
+- Admin orders page (`/admin/orders`) shows order count tiles, status filter, refresh, empty/error states, and expandable details (items, shipping address, totals)
 - Robust image fallback: every `<img>` for product/order items has an `(error)`
   handler that swaps in a known-good Unsplash watch photo
 - Light luxury "Maison Tempus" theme
